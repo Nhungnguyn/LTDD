@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "31477890408",
+    "firebase_url": "https://drivingtestapp-998f1-default-rtdb.firebaseio.com",
+    "project_id": "drivingtestapp-998f1",
+    "storage_bucket": "drivingtestapp-998f1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31477890408:android:cb815c9e6bf3ac77fd6add",
+        "android_client_info": {
+          "package_name": "com.example.drivingtestapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgnTN5G112OMHF3hq6RvDCujFmB63Kz_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31477890408:android:19df5159f07c8287fd6add",
+        "android_client_info": {
+          "package_name": "example.drivingtestapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgnTN5G112OMHF3hq6RvDCujFmB63Kz_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

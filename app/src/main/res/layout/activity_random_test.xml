@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_timer"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Thời gian: 19:00"
+        android:textColor="#D32F2F"
+        android:textSize="20sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvQuestionIndicators"
+        android:layout_width="match_parent"
+        android:layout_height="143dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvQuestionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Câu 1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="6dp"/>
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nội dung câu hỏi"
+        android:textSize="17sp"
+        android:textColor="#424242"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Đây là ImageView để hiển thị hình ảnh câu hỏi -->
+    <ImageView
+        android:id="@+id/imgQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:layout_marginBottom="12dp"/>
+
+    <RadioGroup
+        android:id="@+id/rgOptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/rbOptionA" style="@style/MyRadioButton"/>
+        <RadioButton android:id="@+id/rbOptionB" style="@style/MyRadioButton"/>
+        <RadioButton android:id="@+id/rbOptionC" style="@style/MyRadioButton"/>
+        <RadioButton android:id="@+id/rbOptionD" style="@style/MyRadioButton"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#4CAF50"
+        android:padding="14dp"
+        android:text="Nộp bài"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</LinearLayout>

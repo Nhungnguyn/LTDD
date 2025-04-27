@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Nội dung câu hỏi -->
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Câu hỏi"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:textColor="#212121"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Các đáp án -->
+        <RadioGroup
+            android:id="@+id/rgDetailOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton android:id="@+id/rbA" style="@style/MyRadioButton" />
+            <TextView android:id="@+id/tvOptionA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="A. Nội dung A"
+                android:textSize="16sp"/>
+
+            <RadioButton android:id="@+id/rbB" style="@style/MyRadioButton" />
+            <TextView android:id="@+id/tvOptionB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="B. Nội dung B"
+                android:textSize="16sp"/>
+
+            <RadioButton android:id="@+id/rbC" style="@style/MyRadioButton" />
+            <TextView android:id="@+id/tvOptionC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="C. Nội dung C"
+                android:textSize="16sp"/>
+
+            <RadioButton android:id="@+id/rbD" style="@style/MyRadioButton" />
+            <TextView android:id="@+id/tvOptionD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="6dp"
+                android:text="D. Nội dung D"
+                android:textSize="16sp"/>
+        </RadioGroup>
+
+        <!-- Nút xóa -->
+        <Button
+            android:id="@+id/btnDeleteWrong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Xóa khỏi danh sách câu sai"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="24dp"
+            android:padding="14dp"/>
+
+    </LinearLayout>
+</ScrollView>

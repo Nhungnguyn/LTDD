@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="primary_color">#3F51B5</color> <!-- Indigo 500 -->
+    <color name="primary_dark_color">#303F9F</color> <!-- Indigo 700 -->
+    <color name="accent_color">#FF4081</color> <!-- Pink A200 -->
+    <color name="background_light">#F5F5F5</color> <!-- Xám nhạt -->
+    <color name="text_primary">#212121</color> <!-- Đen đậm -->
+    <color name="text_secondary">#757575</color> <!-- Xám đậm -->
+    <color name="error_color">#D32F2F</color> <!-- Đỏ -->
+    <!-- Màu cho các ô -->
+    <color name="card_random_test">#FF9800</color>
+    <color name="card_test_by_set">#F44336</color>
+    <color name="card_view_incorrect">#4CAF50</color>
+    <color name="card_review_questions">#00BCD4</color>
+    <color name="card_traffic_signs">#2196F3</color>
+    <color name="card_memory_aid">#E91E63</color>
+    <color name="card_critical_questions">#795548</color>
+    <color name="card_top_wrong">#607D8B</color>
+</resources>

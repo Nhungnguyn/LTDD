@@ -1,0 +1,42 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/bg_option"
+    android:layout_margin="6dp">
+
+    <TextView
+        android:id="@+id/tvQuestionItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nội dung câu hỏi"
+        android:textSize="16sp"
+        android:textColor="#212121"
+        android:padding="8dp" />
+
+    <RadioGroup
+        android:id="@+id/rgOptionsItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/rbOptionAItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton android:id="@+id/rbOptionBItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton android:id="@+id/rbOptionCItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton android:id="@+id/rbOptionDItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+</LinearLayout>
