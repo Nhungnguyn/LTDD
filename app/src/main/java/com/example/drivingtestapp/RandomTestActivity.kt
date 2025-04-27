@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.drivingtestapp.databinding.ActivityRandomTestBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
@@ -201,18 +202,25 @@ class RandomTestActivity : AppCompatActivity() {
     }
 
     private fun saveWrongQuestionToFirestore(question: Question, userSelected: Int) {
-        val data = hashMapOf(
-            "question" to question.question,
-            "option_a" to question.option_a,
-            "option_b" to question.option_b,
-            "option_c" to question.option_c,
-            "option_d" to question.option_d,
-            "correct_answer" to question.answer,
-            "user_selected" to userSelected,
-            "timestamp" to System.currentTimeMillis()
-        )
-        db.collection("wrong_questions").add(data)
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId != null) {
+            val data = hashMapOf(
+                "question" to question.question,
+                "option_a" to question.option_a,
+                "option_b" to question.option_b,
+                "option_c" to question.option_c,
+                "option_d" to question.option_d,
+                "correct_answer" to question.answer,
+                "user_selected" to userSelected,
+                "timestamp" to System.currentTimeMillis()
+            )
+            db.collection("users")
+                .document(userId)
+                .collection("wrong_questions")
+                .add(data)
+        }
     }
+
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

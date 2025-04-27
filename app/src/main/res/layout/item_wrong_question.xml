@@ -1,42 +1,60 @@
-<LinearLayout
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="12dp"
-    android:background="@drawable/bg_option"
-    android:layout_margin="6dp">
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="4dp"
+    android:layout_margin="8dp"
+    android:background="@android:color/white">
 
-    <TextView
-        android:id="@+id/tvQuestionItem"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nội dung câu hỏi"
-        android:textSize="16sp"
-        android:textColor="#212121"
-        android:padding="8dp" />
+        android:orientation="vertical"
+        android:padding="12dp">
 
-    <RadioGroup
-        android:id="@+id/rgOptionsItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RadioButton android:id="@+id/rbOptionAItem"
+        <!-- Nội dung câu hỏi -->
+        <TextView
+            android:id="@+id/tvQuestionItem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Nội dung câu hỏi"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:layout_marginBottom="10dp" />
 
-        <RadioButton android:id="@+id/rbOptionBItem"
+        <!-- Nhóm các đáp án -->
+        <RadioGroup
+            android:id="@+id/rgOptionsItem"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <RadioButton android:id="@+id/rbOptionCItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbOptionAItem"
+                style="@style/MyRadioButton"
+                android:layout_marginBottom="6dp" />
 
-        <RadioButton android:id="@+id/rbOptionDItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/rbOptionBItem"
+                style="@style/MyRadioButton"
+                android:layout_marginBottom="6dp" />
 
-    </RadioGroup>
-</LinearLayout>
+            <RadioButton
+                android:id="@+id/rbOptionCItem"
+                style="@style/MyRadioButton"
+                android:layout_marginBottom="6dp" />
+
+            <RadioButton
+                android:id="@+id/rbOptionDItem"
+                style="@style/MyRadioButton"
+                android:layout_marginBottom="6dp" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

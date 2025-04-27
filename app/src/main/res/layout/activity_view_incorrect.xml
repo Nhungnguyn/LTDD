@@ -4,23 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="12dp"
     android:background="#FAFAFA">
 
+    <!-- Tiêu đề -->
     <TextView
-        android:id="@+id/tvTitleWrong"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Các câu trả lời sai"
-        android:textSize="22sp"
+        android:text="Danh sách câu trả lời sai"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="#212121"
         android:gravity="center"
-        android:layout_marginBottom="12dp"/>
+        android:textColor="#212121"
+        android:layout_marginBottom="12dp" />
 
+    <!-- RecyclerView danh sách câu sai -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWrongQuestions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false" />
 
 </LinearLayout>

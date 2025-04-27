@@ -1,12 +1,21 @@
 package com.example.drivingtestapp
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 object RetrofitClient {
-    private const val BASE_URL = "http://10.0.2.2:3000/" // hoặc baseUrl server thật nếu test máy thật
+
+    private const val LOCAL_IP = "192.168.1.12"
+    private const val PORT = 3000
+
+    private val BASE_URL: String
+        get() = if (BuildConfig.DEBUG) {
+            "http://10.0.2.2:$PORT/"
+        } else {
+            "http://$LOCAL_IP:$PORT/"
+        }
 
     private val gson: Gson = GsonBuilder()
         .registerTypeAdapter(Boolean::class.java, BooleanTypeAdapter())

@@ -8,6 +8,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
 
+        <item name="android:windowBackground">#FAFAFA</item>
     </style>
     <style name="MyRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:buttonTint">#000000</item> <!-- Màu nút tròn đen -->

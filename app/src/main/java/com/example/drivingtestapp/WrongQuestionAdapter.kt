@@ -29,15 +29,19 @@ class WrongQuestionAdapter(private val questions: List<WrongQuestion>) :
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val question = questions[position]
         holder.tvQuestion.text = question.question
-        holder.rbA.text = "A. ${question.optionA}"
-        holder.rbB.text = "B. ${question.optionB}"
-        holder.rbC.text = "C. ${question.optionC}"
-        holder.rbD.text = "D. ${question.optionD}"
 
-        // Clear old selection
+        // Reset màu về mặc định trước
+        resetOptions(holder)
+
+        // Setup đáp án
+        setupOption(holder.rbA, question.optionA, "A")
+        setupOption(holder.rbB, question.optionB, "B")
+        setupOption(holder.rbC, question.optionC, "C")
+        setupOption(holder.rbD, question.optionD, "D")
+
         holder.rgOptions.clearCheck()
 
-        // Select the answer user selected
+        // Check đáp án người dùng đã chọn
         when (question.userSelected) {
             0 -> holder.rbA.isChecked = true
             1 -> holder.rbB.isChecked = true
@@ -45,14 +49,45 @@ class WrongQuestionAdapter(private val questions: List<WrongQuestion>) :
             3 -> holder.rbD.isChecked = true
         }
 
-        // Highlight correct answer
+        // Highlight đáp án
         when (question.correctAnswer) {
-            0 -> holder.rbA.setTextColor(Color.GREEN)
-            1 -> holder.rbB.setTextColor(Color.GREEN)
-            2 -> holder.rbC.setTextColor(Color.GREEN)
-            3 -> holder.rbD.setTextColor(Color.GREEN)
+            0 -> holder.rbA.setTextColor(Color.parseColor("#388E3C")) // Xanh
+            1 -> holder.rbB.setTextColor(Color.parseColor("#388E3C"))
+            2 -> holder.rbC.setTextColor(Color.parseColor("#388E3C"))
+            3 -> holder.rbD.setTextColor(Color.parseColor("#388E3C"))
+        }
+
+        if (question.userSelected != -1 && question.userSelected != question.correctAnswer) {
+            when (question.userSelected) {
+                0 -> holder.rbA.setTextColor(Color.parseColor("#D32F2F")) // Đỏ
+                1 -> holder.rbB.setTextColor(Color.parseColor("#D32F2F"))
+                2 -> holder.rbC.setTextColor(Color.parseColor("#D32F2F"))
+                3 -> holder.rbD.setTextColor(Color.parseColor("#D32F2F"))
+            }
         }
     }
 
     override fun getItemCount(): Int = questions.size
+
+    private fun setupOption(radioButton: RadioButton, text: String?, prefix: String) {
+        if (!text.isNullOrEmpty()) {
+            radioButton.visibility = View.VISIBLE
+            radioButton.text = "$prefix. $text"
+        } else {
+            radioButton.visibility = View.GONE
+        }
+    }
+
+    private fun resetOptions(holder: QuestionViewHolder) {
+        val defaultColor = Color.BLACK
+        holder.rbA.visibility = View.VISIBLE
+        holder.rbB.visibility = View.VISIBLE
+        holder.rbC.visibility = View.VISIBLE
+        holder.rbD.visibility = View.VISIBLE
+
+        holder.rbA.setTextColor(defaultColor)
+        holder.rbB.setTextColor(defaultColor)
+        holder.rbC.setTextColor(defaultColor)
+        holder.rbD.setTextColor(defaultColor)
+    }
 }

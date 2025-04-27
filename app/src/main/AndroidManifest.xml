@@ -33,7 +33,7 @@
         <activity android:name=".RandomTestActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".TestResultActivity" />
-
+        <activity android:name=".ForgotPasswordActivity" />
 
     </application>
 

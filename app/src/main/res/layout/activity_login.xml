@@ -1,104 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center_horizontal"
-    tools:context=".LoginActivity">
+    android:background="#FAFAFA">
 
-    <!-- Tiêu đề -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Driving Test App"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/purple_500"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"/>
-
-    <!-- Email Text Input -->
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@android:color/darker_gray"
-        app:startIconDrawable="@android:drawable/ic_menu_send"
-        android:layout_marginBottom="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Driving Test App"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="#8a8a8a"
-            android:textColor="#000000"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="16dp"
+            app:startIconDrawable="@drawable/ic_email"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp">
 
-    <!-- Password Text Input -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@android:color/darker_gray"
-        app:startIconDrawable="@android:drawable/ic_lock_lock"
-        app:passwordToggleEnabled="true"
-        android:layout_marginBottom="16dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Mật khẩu -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mật khẩu"
-            android:inputType="textPassword"
-            android:textColorHint="#8a8a8a"
-            android:textColor="#000000"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginBottom="16dp"
+            app:startIconDrawable="@drawable/ic_lock"
+            app:passwordToggleEnabled="true"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="16dp"
+            app:boxCornerRadiusTopEnd="16dp"
+            app:boxCornerRadiusBottomStart="16dp"
+            app:boxCornerRadiusBottomEnd="16dp">
 
-    <!-- Forgot Password Text -->
-    <TextView
-        android:id="@+id/tvForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="Quên mật khẩu?"
-        android:textColor="@color/teal_200"
-        android:padding="8dp"
-        android:layout_marginBottom="16dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- ProgressBar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:indeterminateTint="@color/purple_500"
-        android:layout_marginBottom="16dp" />
+        <!-- Quên mật khẩu -->
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quên mật khẩu?"
+            android:textColor="#1976D2"
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp"
+            android:layout_gravity="end"/>
 
-    <!-- Login Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đăng nhập"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/purple_500"
-        android:textColor="@color/white"/>
+        <!-- Nút Đăng nhập -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng nhập"
+            android:textSize="16sp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="@android:color/white"
+            app:cornerRadius="24dp"
+            android:layout_marginBottom="12dp"/>
 
-    <!-- Register Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Đăng ký"
-        android:textColor="@color/purple_500"
-        android:backgroundTint="@android:color/white"
-        android:layout_marginBottom="16dp"
-        app:strokeColor="@color/purple_500"
-        app:strokeWidth="1dp"/>
+        <!-- Nút Đăng ký -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký"
+            android:textSize="16sp"
+            android:textColor="#4CAF50"
+            android:backgroundTint="#FFFFFF"
+            app:strokeColor="#4CAF50"
+            app:strokeWidth="2dp"
+            app:cornerRadius="24dp"/>
 
-</LinearLayout>
+        <!-- ProgressBar loading -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:indeterminateTint="#4CAF50"/>
+
+    </LinearLayout>
+</ScrollView>

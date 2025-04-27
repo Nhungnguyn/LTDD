@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.drivingtestapp.databinding.ActivityViewIncorrectBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class ViewIncorrectActivity : AppCompatActivity() {
 
@@ -31,8 +33,17 @@ class ViewIncorrectActivity : AppCompatActivity() {
     }
 
     private fun loadWrongQuestionsFromFirestore() {
-        db.collection("wrong_questions")
-            .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, "Chưa đăng nhập!", Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
+
+        db.collection("users")
+            .document(userId)
+            .collection("wrong_questions")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { result ->
                 wrongQuestions.clear()
@@ -59,7 +70,7 @@ class ViewIncorrectActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 Log.e("ViewIncorrectActivity", "Error: ${e.message}")
-                Toast.makeText(this, "Lỗi tải dữ liệu!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Lỗi tải dữ liệu: ${e.message}", Toast.LENGTH_SHORT).show()
                 finish()
             }
     }
