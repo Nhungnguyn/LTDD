@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.drivingtestapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.example.drivingtestapp.MemoryAidActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

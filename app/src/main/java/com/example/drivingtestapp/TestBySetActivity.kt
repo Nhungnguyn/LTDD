@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import android.util.Log // Thêm import này
 
 class TestBySetActivity : AppCompatActivity() {
 
@@ -211,7 +212,10 @@ class TestBySetActivity : AppCompatActivity() {
     private fun saveWrongQuestionToFirestore(question: Question, userSelected: Int) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
-            val data = hashMapOf(
+            Log.d("RandomTestActivity", "Saving wrong question for user: $userId, questionId: ${question.id}")
+            // Lưu vào wrong_questions của người dùng
+            val userData = hashMapOf(
+                "questionId" to question.id,
                 "question" to question.question,
                 "option_a" to question.option_a,
                 "option_b" to question.option_b,
@@ -224,11 +228,46 @@ class TestBySetActivity : AppCompatActivity() {
             db.collection("users")
                 .document(userId)
                 .collection("wrong_questions")
-                .add(data)
+                .add(userData)
+                .addOnSuccessListener {
+                    Log.d("RandomTestActivity", "Successfully saved user wrong question: ${question.id}")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("RandomTestActivity", "Error saving user wrong question: ${e.message}")
+                }
+
+            // Cập nhật thống kê chung trong wrong_questions_stats
+            val statsRef = db.collection("wrong_questions_stats").document(question.id.toString())
+            db.runTransaction { transaction ->
+                val snapshot = transaction.get(statsRef)
+                val newCount = if (snapshot.exists()) {
+                    (snapshot.getLong("wrongCount") ?: 0) + 1
+                } else {
+                    1L
+                }
+
+                val statsData = hashMapOf(
+                    "questionId" to question.id,
+                    "question" to question.question,
+                    "option_a" to question.option_a,
+                    "option_b" to question.option_b,
+                    "option_c" to question.option_c,
+                    "option_d" to question.option_d,
+                    "correct_answer" to question.answer,
+                    "wrongCount" to newCount,
+                    "lastUpdated" to System.currentTimeMillis()
+                )
+                transaction.set(statsRef, statsData)
+                newCount
+            }.addOnSuccessListener { newCount ->
+                Log.d("RandomTestActivity", "Successfully updated wrong_questions_stats for questionId: ${question.id}, new wrongCount: $newCount")
+            }.addOnFailureListener { e ->
+                Log.e("RandomTestActivity", "Error updating wrong questions stats: ${e.message}")
+            }
+        } else {
+            Log.w("RandomTestActivity", "User not logged in, skipping save to Firestore")
         }
     }
-
-
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }

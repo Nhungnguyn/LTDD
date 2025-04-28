@@ -22,17 +22,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvQuestionIndicators"
         android:layout_width="match_parent"
-        android:layout_height="143dp"
+        android:layout_height="97dp"
         android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/tvQuestionNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
         android:text="Câu 1"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="6dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvQuestion"

@@ -318,7 +318,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:padding="16dp"
-                        android:text="Top 50 câu sai"
+                        android:text="Top 10 câu sai"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         android:fontFamily="sans-serif-medium"

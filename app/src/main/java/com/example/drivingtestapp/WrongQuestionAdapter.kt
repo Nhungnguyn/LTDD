@@ -9,16 +9,25 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class WrongQuestionAdapter(private val questions: List<WrongQuestion>) :
-    RecyclerView.Adapter<WrongQuestionAdapter.QuestionViewHolder>() {
+class WrongQuestionAdapter(
+    private val questions: List<WrongQuestion>,
+    private val onItemClick: (WrongQuestion) -> Unit
+) : RecyclerView.Adapter<WrongQuestionAdapter.QuestionViewHolder>() {
 
     inner class QuestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val tvRank: TextView = itemView.findViewById(R.id.tvRank)
         val tvQuestion: TextView = itemView.findViewById(R.id.tvQuestionItem)
         val rgOptions: RadioGroup = itemView.findViewById(R.id.rgOptionsItem)
         val rbA: RadioButton = itemView.findViewById(R.id.rbOptionAItem)
         val rbB: RadioButton = itemView.findViewById(R.id.rbOptionBItem)
         val rbC: RadioButton = itemView.findViewById(R.id.rbOptionCItem)
         val rbD: RadioButton = itemView.findViewById(R.id.rbOptionDItem)
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick(questions[adapterPosition])
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
@@ -28,6 +37,7 @@ class WrongQuestionAdapter(private val questions: List<WrongQuestion>) :
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val question = questions[position]
+        holder.tvRank.text = "${position + 1}."
         holder.tvQuestion.text = question.question
 
         // Reset màu về mặc định trước
@@ -41,12 +51,14 @@ class WrongQuestionAdapter(private val questions: List<WrongQuestion>) :
 
         holder.rgOptions.clearCheck()
 
-        // Check đáp án người dùng đã chọn
-        when (question.userSelected) {
-            0 -> holder.rbA.isChecked = true
-            1 -> holder.rbB.isChecked = true
-            2 -> holder.rbC.isChecked = true
-            3 -> holder.rbD.isChecked = true
+        // Check đáp án người dùng đã chọn (nếu có)
+        if (question.userSelected != -1) {
+            when (question.userSelected) {
+                0 -> holder.rbA.isChecked = true
+                1 -> holder.rbB.isChecked = true
+                2 -> holder.rbC.isChecked = true
+                3 -> holder.rbD.isChecked = true
+            }
         }
 
         // Highlight đáp án

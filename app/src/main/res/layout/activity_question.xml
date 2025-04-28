@@ -1,99 +1,92 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#F5F5F5">
+    android:padding="16dp">
 
-    <!-- Câu hỏi -->
+    <!-- Timer (nếu có) -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thời gian: 19:00"
+        android:textSize="16sp"
+        android:layout_gravity="end"/>
+
+    <!-- RecyclerView để hiển thị chỉ số câu hỏi -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvQuestionIndicators"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Số câu hỏi -->
+    <TextView
+        android:id="@+id/tvQuestionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Câu 1"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <!-- Nội dung câu hỏi -->
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Câu hỏi sẽ được hiển thị ở đây"
-        android:textSize="18sp"
-        android:textColor="#212121"
-        android:layout_marginBottom="16dp" />
+        android:text="Câu hỏi mẫu"
+        android:textSize="16sp"
+        android:layout_marginVertical="8dp"/>
 
-    <!-- Đáp án -->
+    <!-- Hình ảnh câu hỏi (nếu có) -->
+    <ImageView
+        android:id="@+id/imgQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Các lựa chọn -->
     <RadioGroup
         android:id="@+id/radioGroupOptions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp">
+        android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/radioButtonA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="A. Đáp án A"
-            android:textSize="16sp"
-            android:padding="8dp" />
+            android:layout_marginVertical="4dp"/>
 
         <RadioButton
             android:id="@+id/radioButtonB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="B. Đáp án B"
-            android:textSize="16sp"
-            android:padding="8dp" />
+            android:layout_marginVertical="4dp"/>
 
         <RadioButton
             android:id="@+id/radioButtonC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="C. Đáp án C"
-            android:textSize="16sp"
-            android:padding="8dp" />
+            android:layout_marginVertical="4dp"/>
 
         <RadioButton
             android:id="@+id/radioButtonD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="D. Đáp án D"
-            android:textSize="16sp"
-            android:padding="8dp" />
+            android:layout_marginVertical="4dp"/>
     </RadioGroup>
 
-    <!-- Nút Submit, Next, Skip -->
-    <LinearLayout
+    <!-- Nút nộp -->
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:text="Tiếp tục"
+        android:layout_marginTop="16dp"/>
 
-        <Button
-            android:id="@+id/btnSkip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bỏ qua"
-            android:textSize="16sp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rounded_button"
-            android:textColor="@android:color/white"
-            android:padding="12dp" />
-
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nộp"
-            android:textSize="16sp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/rounded_button"
-            android:textColor="@android:color/white"
-            android:padding="12dp" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tiếp theo"
-            android:textSize="16sp"
-            android:background="@drawable/rounded_button"
-            android:textColor="@android:color/white"
-            android:padding="12dp" />
-    </LinearLayout>
 </LinearLayout>

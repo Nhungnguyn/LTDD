@@ -1,142 +1,82 @@
 package com.example.drivingtestapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import com.google.firebase.auth.FirebaseAuth
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.drivingtestapp.databinding.ActivityTopWrongBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import com.example.drivingtestapp.databinding.ActivityQuestionBinding
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import com.google.firebase.firestore.Query
 
 class TopWrongActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityQuestionBinding
-    private val db = FirebaseFirestore.getInstance()
-    private var questions = mutableListOf<Question>()
-    private var currentQuestionIndex = 0
+
+    private lateinit var binding: ActivityTopWrongBinding
+    private lateinit var db: FirebaseFirestore
+    private lateinit var adapter: WrongQuestionAdapter
+    private val wrongQuestions = mutableListOf<WrongQuestion>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityQuestionBinding.inflate(layoutInflater)
+        binding = ActivityTopWrongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        db = FirebaseFirestore.getInstance()
+
+        setupRecyclerView()
+        setupListeners()
         loadTopWrongQuestions()
     }
 
-    private fun loadTopWrongQuestions() {
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null) {
-            Toast.makeText(this, "Vui lòng đăng nhập để xem câu hỏi trả lời sai", Toast.LENGTH_SHORT).show()
-            finish()
-            return
+    private fun setupRecyclerView() {
+        adapter = WrongQuestionAdapter(wrongQuestions) { question ->
+            val intent = Intent(this, WrongQuestionDetailActivity::class.java)
+            intent.putExtra("WRONG_QUESTION", question)
+            startActivity(intent)
         }
+        binding.rvWrongQuestions.layoutManager = LinearLayoutManager(this)
+        binding.rvWrongQuestions.adapter = adapter
+    }
 
-        db.collection("users").document(user.uid)
-            .collection("attempts")
+    private fun setupListeners() {
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun loadTopWrongQuestions() {
+        db.collection("wrong_questions_stats")
+            .orderBy("wrongCount", Query.Direction.DESCENDING)
+            .limit(10)
             .get()
-            .addOnSuccessListener { attempts ->
-                val wrongQuestionIds = mutableListOf<String>()
-                for (attempt in attempts) {
-                    val wrongQuestions = attempt.get("wrongQuestions") as? List<String> ?: emptyList()
-                    wrongQuestionIds.addAll(wrongQuestions)
+            .addOnSuccessListener { result ->
+                wrongQuestions.clear()
+                for (doc in result.documents) {
+                    val question = WrongQuestion(
+                        questionId = (doc.getLong("questionId") ?: -1L).toInt(),
+                        question = doc.getString("question") ?: "",
+                        optionA = doc.getString("option_a") ?: "",
+                        optionB = doc.getString("option_b") ?: "",
+                        optionC = doc.getString("option_c") ?: "",
+                        optionD = doc.getString("option_d") ?: "",
+                        correctAnswer = (doc.getLong("correct_answer") ?: -1L).toInt(),
+                        userSelected = -1,
+                        timestamp = doc.getLong("lastUpdated") ?: 0L,
+                        wrongCount = (doc.getLong("wrongCount") ?: 0L).toInt()
+                    )
+                    wrongQuestions.add(question)
                 }
 
-                val wrongCountMap = wrongQuestionIds.groupingBy { it }.eachCount()
-                val topWrongIds = wrongCountMap.entries
-                    .sortedByDescending { it.value }
-                    .take(10)
-                    .map { it.key }
-
-                if (topWrongIds.isEmpty()) {
-                    Toast.makeText(this, "Bạn chưa trả lời sai câu hỏi nào", Toast.LENGTH_SHORT).show()
+                if (wrongQuestions.isEmpty()) {
+                    Toast.makeText(this, "Chưa có câu hỏi sai nào!", Toast.LENGTH_SHORT).show()
                     finish()
-                    return@addOnSuccessListener
+                } else {
+                    adapter.notifyDataSetChanged()
                 }
-
-                fetchQuestions(topWrongIds)
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Lỗi tải dữ liệu: ${e.message}", Toast.LENGTH_SHORT).show()
                 finish()
             }
-    }
-
-    private fun fetchQuestions(topWrongIds: List<String>) {
-        lifecycleScope.launch {
-            try {
-                val response: Response<List<Question>> = RetrofitClient.apiService.getAllQuestions()
-
-                if (response.isSuccessful) {
-                    val allQuestions = response.body() ?: emptyList()
-                    questions = allQuestions.filter { it.id.toString() in topWrongIds }.toMutableList()
-                    if (questions.isEmpty()) {
-                        Toast.makeText(this@TopWrongActivity, "Không tìm thấy câu hỏi", Toast.LENGTH_SHORT).show()
-                        finish()
-                    } else {
-                        displayQuestion()
-                    }
-                } else {
-                    Toast.makeText(this@TopWrongActivity, "Lỗi tải câu hỏi", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            } catch (e: Exception) {
-                Toast.makeText(this@TopWrongActivity, "Lỗi: ${e.message}", Toast.LENGTH_SHORT).show()
-                finish()
-            }
-        }
-    }
-
-    private fun displayQuestion() {
-        if (currentQuestionIndex < questions.size) {
-            val question = questions[currentQuestionIndex]
-            binding.tvQuestion.text = question.question
-            binding.radioGroupOptions.clearCheck()
-
-            val options = question.getOptions()
-            binding.radioButtonA.text = options[0]
-            binding.radioButtonB.text = options[1]
-            binding.radioButtonC.text = options[2]
-            binding.radioButtonD.text = options[3]
-
-            binding.btnSubmit.setOnClickListener {
-                val selectedOption = when (binding.radioGroupOptions.checkedRadioButtonId) {
-                    binding.radioButtonA.id -> 0
-                    binding.radioButtonB.id -> 1
-                    binding.radioButtonC.id -> 2
-                    binding.radioButtonD.id -> 3
-                    else -> -1
-                }
-
-                if (selectedOption == -1) {
-                    Toast.makeText(this, "Vui lòng chọn đáp án!", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                if (selectedOption == question.answer) {
-                    Toast.makeText(this, "Đúng!", Toast.LENGTH_SHORT).show()
-                } else {
-                    val user = FirebaseAuth.getInstance().currentUser
-                    if (user != null) {
-                        db.collection("users").document(user.uid)
-                            .collection("attempts").add(
-                                mapOf(
-                                    "wrongQuestions" to listOf(question.id.toString()),
-                                    "timestamp" to com.google.firebase.Timestamp.now()
-                                )
-                            )
-                    }
-                    Toast.makeText(this, "Sai! Đáp án đúng: ${question.getOptions()[question.answer]}", Toast.LENGTH_LONG).show()
-                }
-
-                currentQuestionIndex++
-                if (currentQuestionIndex < questions.size) {
-                    displayQuestion()
-                } else {
-                    Toast.makeText(this, "Hoàn thành xem xét câu hỏi trả lời sai nhiều nhất!", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-            }
-        }
     }
 }
